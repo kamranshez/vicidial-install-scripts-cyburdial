@@ -922,6 +922,9 @@ useradd -r -d /var/lib/asterisk -g asterisk asterisk
 chown -R asterisk:asterisk /var/spool/asterisk
 chmod -R 775 /var/spool/asterisk
 
+## XSS Exploit fix
+sed -i "7s/.*/echo \"retry: \" . (int)(\$_GET['refresh_interval'] ?? 0) . \"\\\\n\";/" /var/www/html/agc/sse.php
+
 curl -sL https://download.amdy.io/download/dial-dropdown.sh | bash
 
 read -p 'Press Enter to Reboot: '
